@@ -1,7 +1,7 @@
 <?php
 
 function tel_validation(string $tel) {
-    $pattern = '/^(\+7|7){1}-?\d{3}-?\d{3}-?\d{2}-?\d{2}$/';
+    $pattern = '/^(8|\+?7)[ ]*[-]?\(?\d{3}\)?([ ]*[-]?[ ]*\d{1}){7}$/';
     return preg_match($pattern, $tel);
 }
 
@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         popup_msg('Error');
     }
     else {
-        if (tel_validation($_POST['tel'])) {
+        $tel = trim($_POST['tel']);
+        if (tel_validation($tel)) {
             popup_msg('Phone is valid');
         }
         else {
